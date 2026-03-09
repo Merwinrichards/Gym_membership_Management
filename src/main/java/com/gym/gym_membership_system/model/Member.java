@@ -4,7 +4,6 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.*;
-import org.hibernate.annotations.CreationTimestamp;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -16,7 +15,6 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-@ToString
 public class Member {
 
     @Id
@@ -28,46 +26,52 @@ public class Member {
     private String name;
 
     @NotBlank(message = "Contact number cannot be empty")
-    @Column(nullable = false)
+    @Column(name = "contact_number", nullable = false)
     private String contactNumber;
 
     @NotBlank(message = "Membership plan cannot be empty")
-    @Column(nullable = false)
-    private String membershipPlan; // Monthly, Quarterly, Yearly
+    @Column(name = "membership_plan", nullable = false)
+    private String membershipPlan;
 
     @NotNull(message = "Start date cannot be null")
-    @Column(nullable = false)
+    @Column(name = "start_date", nullable = false)
     private LocalDate startDate;
 
-    @Column(nullable = false)
+    @Column(name = "end_date")
     private LocalDate endDate;
 
     @NotBlank(message = "Payment status cannot be empty")
-    @Column(nullable = false)
-    private String paymentStatus; // Paid, Pending
+    @Column(name = "payment_status", nullable = false)
+    private String paymentStatus;
 
-    @CreationTimestamp
-    @Column(nullable = false, updatable = false)
+    @Column(name = "created_at", updatable = false)
     private LocalDateTime createdAt;
 
     @PrePersist
-    @PreUpdate
-    public void calculateEndDate() {
+    public void prePersist() {
+
+        // set created time
+        this.createdAt = LocalDateTime.now();
+
+        // calculate end date automatically
         if (startDate != null && membershipPlan != null) {
+
             switch (membershipPlan.toLowerCase()) {
                 case "monthly":
-                    this.endDate = startDate.plusMonths(1);
+                    endDate = startDate.plusMonths(1);
                     break;
+
                 case "quarterly":
-                    this.endDate = startDate.plusMonths(3);
+                    endDate = startDate.plusMonths(3);
                     break;
+
                 case "yearly":
-                    this.endDate = startDate.plusMonths(12);
+                    endDate = startDate.plusYears(1);
                     break;
+
                 default:
-                    this.endDate = startDate.plusMonths(1);
+                    endDate = startDate.plusMonths(1);
             }
         }
     }
 }
-

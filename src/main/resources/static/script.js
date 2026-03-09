@@ -417,91 +417,45 @@ async function handleAddMember(event) {
     event.preventDefault();
 
     try {
-        // Get form values from the member form
-        const name = document.getElementById('memberName').value.trim();
-        const contactInput = document.getElementById('contactNumber') || document.getElementById('memberContact');
-        const contactNumber = contactInput ? contactInput.value.trim() : '';
-        const membershipPlan = document.getElementById('membershipPlan').value;
-        const startDate = document.getElementById('startDate').value;
-        const paymentStatus = document.getElementById('paymentStatus').value;
 
-        // Calculate end date based on membership plan
-        let endDate = null;
-        if (startDate && membershipPlan) {
-            const start = new Date(startDate);
-            const end = new Date(start);
+        const name = document.getElementById("memberName").value.trim();
+        const contactNumber = document.getElementById("contactNumber").value.trim();
+        const membershipPlan = document.getElementById("membershipPlan").value;
+        const startDate = document.getElementById("startDate").value;
+        const paymentStatus = document.getElementById("paymentStatus").value;
 
-            if (membershipPlan === 'Monthly') {
-                end.setMonth(end.getMonth() + 1);
-            } else if (membershipPlan === 'Quarterly') {
-                end.setMonth(end.getMonth() + 3);
-            } else if (membershipPlan === 'Yearly') {
-                end.setFullYear(end.getFullYear() + 1);
-            }
-
-            endDate = end.toISOString().split('T')[0];
-        }
-
-        // Clear previous error messages
-        clearFormErrors();
-
-        // Validate inputs with detailed error messages
-        const validationErrors = validateAddMemberForm(name, contactNumber, membershipPlan, startDate, paymentStatus);
-
-        if (validationErrors.length > 0) {
-            displayFormErrors(validationErrors);
-            showError('Please fix the validation errors below');
-            return;
-        }
-
-        // Prepare member object
-        const newMember = {
-            name,
-            contactNumber,
-            membershipPlan,
-            startDate,
-            endDate,
-            paymentStatus
+        const memberData = {
+            name: name,
+            contactNumber: contactNumber,
+            membershipPlan: membershipPlan,
+            startDate: startDate,
+            paymentStatus: paymentStatus
         };
 
-        console.log('Adding new member:', newMember);
+        console.log("Sending data:", memberData);
 
-        // Make API request to backend
-        const response = await fetch(API_BASE_URL, {
-            method: 'POST',
+        const response = await fetch("http://localhost:8081/api/members", {
+            method: "POST",
             headers: {
-                'Content-Type': 'application/json',
+                "Content-Type": "application/json"
             },
-            body: JSON.stringify(newMember)
+            body: JSON.stringify(memberData)
         });
 
         if (!response.ok) {
-            const errorData = await response.json();
-            throw new Error(errorData.message || `HTTP error! status: ${response.status}`);
+            throw new Error("Failed to save member");
         }
 
         const result = await response.json();
-        console.log('Member added successfully:', result);
+        console.log("Saved:", result);
 
-        // Reset form
-        event.target.reset();
-        document.getElementById('startDate').value = new Date().toISOString().split('T')[0];
+        alert("Member added successfully!");
 
-        // Show success message
-        showSuccess('Member saved to database!');
-
-        // Reload members
-        await loadMembers();
-
-        // Close the modal
-        const addMemberModal = bootstrap.Modal.getInstance(document.getElementById('addMemberModal'));
-        if (addMemberModal) {
-            addMemberModal.hide();
-        }
+        loadMembers(); // reload table
 
     } catch (error) {
-        console.error('Error adding member:', error);
-        showError(`Failed to add member: ${error.message}`);
+        console.error("Error:", error);
+        alert("Error saving member");
     }
 }
 

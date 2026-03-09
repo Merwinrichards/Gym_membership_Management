@@ -3,530 +3,431 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Gym Membership Management System</title>
+    <title>IronPulse Fitness | Gym Membership Management</title>
 
-    <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <!-- Bootstrap Icons -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 
     <style>
         :root {
-            --primary-color: #2c3e50;
-            --secondary-color: #3498db;
-            --success-color: #27ae60;
-            --danger-color: #e74c3c;
-            --warning-color: #f39c12;
-            --light-bg: #ecf0f1;
+            --bg: #0b0b0d;
+            --card: #131317;
+            --card-2: #1a1a20;
+            --text: #f5f5f7;
+            --muted: #a1a1aa;
+            --gold: #d4af37;
+            --gold-2: #f4d06f;
+            --danger: #ef4444;
+            --success: #22c55e;
+            --pending: #f59e0b;
+            --border: rgba(255, 255, 255, 0.1);
+            --shadow: 0 20px 40px rgba(0, 0, 0, 0.45);
         }
 
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+        * { box-sizing: border-box; }
 
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            min-height: 100vh;
-            padding: 20px 0;
-        }
-
-        .navbar-custom {
-            background: linear-gradient(90deg, var(--primary-color) 0%, var(--secondary-color) 100%);
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-        }
-
-        .navbar-custom .navbar-brand {
-            font-weight: bold;
-            font-size: 1.5rem;
-            color: white !important;
-        }
-
-        .navbar-custom .nav-link {
-            color: rgba(255, 255, 255, 0.8) !important;
-            transition: color 0.3s ease;
-        }
-
-        .navbar-custom .nav-link:hover {
-            color: white !important;
-        }
-
-        .container-custom {
-            background: white;
-            border-radius: 10px;
-            box-shadow: 0 5px 30px rgba(0, 0, 0, 0.2);
-            overflow: hidden;
-        }
-
-        .header-section {
-            background: linear-gradient(90deg, var(--primary-color) 0%, var(--secondary-color) 100%);
-            color: white;
-            padding: 30px 20px;
-            text-align: center;
-        }
-
-        .header-section h1 {
             margin: 0;
-            font-size: 2rem;
-            font-weight: bold;
+            font-family: Inter, "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+            background: radial-gradient(circle at 10% 10%, #1c1c22 0%, var(--bg) 45%);
+            color: var(--text);
         }
 
-        .header-section p {
-            margin: 10px 0 0 0;
-            opacity: 0.9;
+        .navbar-premium {
+            background: rgba(11, 11, 13, 0.85);
+            backdrop-filter: blur(8px);
+            border-bottom: 1px solid var(--border);
         }
 
-        .card-custom {
-            border: none;
-            border-radius: 8px;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
-            margin-bottom: 20px;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        .brand-mark {
+            color: var(--gold);
+            font-weight: 800;
+            letter-spacing: 0.3px;
         }
 
-        .card-custom:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.15);
-        }
+        .nav-link { color: #d4d4d8 !important; }
+        .nav-link:hover { color: var(--gold-2) !important; }
 
-        .card-header-custom {
-            background: linear-gradient(90deg, var(--secondary-color) 0%, #2980b9 100%);
-            color: white;
-            border: none;
-            padding: 15px 20px;
-            font-weight: bold;
-            font-size: 1.1rem;
-        }
-
-        .form-section {
-            padding: 30px;
-        }
-
-        .form-label {
-            font-weight: 600;
-            color: var(--primary-color);
-            margin-bottom: 8px;
-        }
-
-        .form-control, .form-select {
-            border: 2px solid #e0e0e0;
-            border-radius: 6px;
-            padding: 10px 12px;
-            transition: border-color 0.3s ease;
-        }
-
-        .form-control:focus, .form-select:focus {
-            border-color: var(--secondary-color);
-            box-shadow: 0 0 0 0.2rem rgba(52, 152, 219, 0.25);
-        }
-
-        .btn-custom {
-            border-radius: 6px;
-            font-weight: 600;
-            padding: 10px 20px;
-            transition: all 0.3s ease;
-        }
-
-        .btn-primary-custom {
-            background: linear-gradient(90deg, var(--secondary-color) 0%, #2980b9 100%);
-            border: none;
-            color: white;
-        }
-
-        .btn-primary-custom:hover {
-            background: linear-gradient(90deg, #2980b9 0%, #1f618d 100%);
-            color: white;
-            transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(52, 152, 219, 0.4);
-        }
-
-        .btn-success-custom {
-            background: var(--success-color);
-            border: none;
-            color: white;
-            padding: 5px 10px;
-            font-size: 0.85rem;
-        }
-
-        .btn-success-custom:hover {
-            background: #229954;
-            color: white;
-        }
-
-        .btn-danger-custom {
-            background: var(--danger-color);
-            border: none;
-            color: white;
-            padding: 5px 10px;
-            font-size: 0.85rem;
-        }
-
-        .btn-danger-custom:hover {
-            background: #c0392b;
-            color: white;
-        }
-
-        .filters-section {
-            padding: 20px;
-            background: #f8f9fa;
-            border-bottom: 1px solid #e0e0e0;
-        }
-
-        .search-wrapper {
-            position: relative;
-        }
-
-        .search-wrapper i {
-            position: absolute;
-            left: 12px;
-            top: 50%;
-            transform: translateY(-50%);
-            color: var(--secondary-color);
-        }
-
-        .search-wrapper input {
-            padding-left: 40px;
-        }
-
-        .table-responsive-custom {
-            padding: 20px;
-        }
-
-        .table-custom {
-            margin: 0;
-        }
-
-        .table-custom thead {
-            background: linear-gradient(90deg, #f8f9fa 0%, #ecf0f1 100%);
-            border-bottom: 2px solid var(--secondary-color);
-        }
-
-        .table-custom thead th {
-            color: var(--primary-color);
-            font-weight: 600;
-            border: none;
-            padding: 12px;
-            vertical-align: middle;
-        }
-
-        .table-custom tbody tr {
-            border-bottom: 1px solid #e0e0e0;
-            transition: background-color 0.3s ease;
-        }
-
-        .table-custom tbody tr:hover {
-            background-color: #f8f9fa;
-        }
-
-        .table-custom tbody td {
-            padding: 12px;
-            vertical-align: middle;
-        }
-
-        .badge-custom {
-            padding: 6px 12px;
-            border-radius: 20px;
-            font-weight: 600;
-            font-size: 0.85rem;
-        }
-
-        .badge-paid {
-            background-color: #d4edda;
-            color: #155724;
-        }
-
-        .badge-pending {
-            background-color: #fff3cd;
-            color: #856404;
-        }
-
-        .badge-expired {
-            background-color: #f8d7da;
-            color: #721c24;
-            animation: blink 1.5s infinite;
-        }
-
-        @keyframes blink {
-            0%, 49%, 100% {
-                opacity: 1;
-            }
-            50%, 99% {
-                opacity: 0.7;
-            }
-        }
-
-        .row-expired {
-            background-color: #ffe6e6 !important;
-            border-left: 4px solid var(--danger-color);
-        }
-
-        .row-expired:hover {
-            background-color: #ffd9d9 !important;
-        }
-
-        .stats-section {
+        .hero {
+            min-height: 72vh;
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 15px;
-            margin-bottom: 30px;
+            align-items: center;
+            background:
+                linear-gradient(90deg, rgba(0, 0, 0, 0.75) 15%, rgba(0, 0, 0, 0.45) 55%, rgba(0, 0, 0, 0.2) 100%),
+                url('https://images.unsplash.com/photo-1534438327276-14e5300c3a48?auto=format&fit=crop&w=1900&q=80') center/cover no-repeat;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .hero h1 {
+            font-size: clamp(2rem, 4vw, 3.5rem);
+            font-weight: 800;
+            margin-bottom: 0.75rem;
+        }
+
+        .hero .gold { color: var(--gold-2); }
+
+        .hero p {
+            max-width: 620px;
+            color: #e4e4e7;
+            font-size: 1.05rem;
+        }
+
+        .btn-gold {
+            background: linear-gradient(90deg, var(--gold), var(--gold-2));
+            color: #111;
+            border: 0;
+            font-weight: 700;
+            box-shadow: 0 10px 25px rgba(212, 175, 55, 0.35);
+        }
+
+        .btn-gold:hover {
+            transform: translateY(-2px);
+            color: #000;
+        }
+
+        .section-wrap {
+            max-width: 1220px;
+            margin: 0 auto;
+            padding: 28px 16px;
+            animation: fadeUp 0.6s ease both;
+        }
+
+        .headline {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+            margin-bottom: 18px;
+        }
+
+        .headline h2 {
+            font-size: clamp(1.25rem, 2.4vw, 2rem);
+            margin: 0;
+            font-weight: 700;
+        }
+
+        .headline small { color: var(--muted); }
+
+        .glass-card {
+            background: linear-gradient(180deg, rgba(255, 255, 255, 0.03), rgba(255, 255, 255, 0.01));
+            border: 1px solid var(--border);
+            border-radius: 14px;
+            box-shadow: var(--shadow);
+        }
+
+        .stat-grid {
+            display: grid;
+            grid-template-columns: repeat(4, minmax(180px, 1fr));
+            gap: 14px;
         }
 
         .stat-card {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            padding: 20px;
-            border-radius: 8px;
-            text-align: center;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            padding: 16px;
+            position: relative;
+            overflow: hidden;
+            transition: transform 0.25s ease, box-shadow 0.25s ease;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 24px 45px rgba(0, 0, 0, 0.5);
+        }
+
+        .stat-icon {
+            width: 42px;
+            height: 42px;
+            display: inline-grid;
+            place-items: center;
+            border-radius: 10px;
+            background: rgba(212, 175, 55, 0.18);
+            color: var(--gold-2);
+            font-size: 1.2rem;
         }
 
         .stat-card h3 {
-            margin: 0;
-            font-size: 2rem;
-            font-weight: bold;
+            margin: 12px 0 3px;
+            font-weight: 800;
+            font-size: 1.8rem;
         }
 
         .stat-card p {
-            margin: 5px 0 0 0;
-            opacity: 0.9;
+            margin: 0;
+            color: var(--muted);
+            font-size: 0.9rem;
         }
 
-        .action-buttons {
-            display: flex;
-            gap: 5px;
-            justify-content: center;
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 14px;
         }
+
+        .gallery-card {
+            position: relative;
+            border-radius: 14px;
+            overflow: hidden;
+            min-height: 260px;
+            border: 1px solid var(--border);
+        }
+
+        .gallery-card img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.45s ease;
+        }
+
+        .gallery-card:hover img { transform: scale(1.08); }
+
+        .gallery-overlay {
+            position: absolute;
+            inset: auto 0 0 0;
+            padding: 14px;
+            background: linear-gradient(180deg, transparent, rgba(0, 0, 0, 0.78));
+            color: #fff;
+            font-weight: 600;
+        }
+
+        .form-panel, .table-panel {
+            padding: 20px;
+        }
+
+        .form-control, .form-select {
+            background: #0f0f13;
+            color: #fff;
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            padding: 10px 12px;
+        }
+
+        .form-control:focus, .form-select:focus {
+            border-color: var(--gold);
+            box-shadow: 0 0 0 0.2rem rgba(212, 175, 55, 0.2);
+            background: #121218;
+            color: #fff;
+        }
+
+        .form-label { color: #e4e4e7; font-weight: 600; }
+
+        .btn-outline-light:hover { color: #111; }
+
+        .toolbar {
+            display: grid;
+            grid-template-columns: 1.3fr 1fr auto;
+            gap: 10px;
+            margin-bottom: 14px;
+        }
+
+        .table-shell {
+            overflow-x: auto;
+            border-radius: 12px;
+            border: 1px solid var(--border);
+            background: #0f0f13;
+        }
+
+        .table-modern {
+            margin: 0;
+            color: #f4f4f5;
+        }
+
+        .table-modern thead th {
+            background: #16161d;
+            color: var(--gold-2);
+            border-bottom: 1px solid var(--border);
+            padding: 14px 12px;
+            font-weight: 700;
+            white-space: nowrap;
+        }
+
+        .table-modern tbody td {
+            border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+            padding: 12px;
+            vertical-align: middle;
+        }
+
+        .table-modern tbody tr:hover {
+            background: rgba(212, 175, 55, 0.08);
+        }
+
+        .member-name { font-weight: 600; }
+
+        .badge-pill {
+            border-radius: 999px;
+            font-size: 0.78rem;
+            padding: 6px 10px;
+            font-weight: 700;
+        }
+
+        .badge-paid { background: rgba(34, 197, 94, 0.2); color: #86efac; }
+        .badge-pending { background: rgba(245, 158, 11, 0.22); color: #fcd34d; }
+        .badge-expired { background: rgba(239, 68, 68, 0.2); color: #fca5a5; }
+        .badge-active { background: rgba(59, 130, 246, 0.2); color: #93c5fd; }
+
+        .row-expired { background: rgba(239, 68, 68, 0.08) !important; }
 
         .empty-state {
             text-align: center;
-            padding: 40px 20px;
-            color: #7f8c8d;
+            color: var(--muted);
+            padding: 30px 16px;
         }
 
-        .empty-state i {
-            font-size: 3rem;
-            color: #bdc3c7;
-            margin-bottom: 10px;
+        .fade-in { animation: fadeUp 0.5s ease both; }
+
+        @keyframes fadeUp {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
         }
 
-        .modal-header-custom {
-            background: linear-gradient(90deg, var(--secondary-color) 0%, #2980b9 100%);
-            color: white;
-            border: none;
+        @media (max-width: 992px) {
+            .stat-grid { grid-template-columns: repeat(2, 1fr); }
+            .gallery-grid { grid-template-columns: 1fr 1fr; }
+            .toolbar { grid-template-columns: 1fr; }
         }
 
-        .alert-custom {
-            border: none;
-            border-radius: 6px;
-            margin-bottom: 20px;
-        }
-
-        .toast-container {
-            position: fixed;
-            top: 20px;
-            right: 20px;
-            z-index: 9999;
-        }
-
-        .footer-section {
-            background: var(--primary-color);
-            color: white;
-            text-align: center;
-            padding: 20px;
-            margin-top: 30px;
-        }
-
-        @media (max-width: 768px) {
-            .header-section h1 {
-                font-size: 1.5rem;
-            }
-
-            .stats-section {
-                grid-template-columns: 1fr;
-            }
-
-            .action-buttons {
-                flex-direction: column;
-            }
-
-            .btn-success-custom, .btn-danger-custom {
-                width: 100%;
-            }
-
-            .table-responsive-custom {
-                overflow-x: auto;
-            }
-        }
-
-        .status-active {
-            color: var(--success-color);
-            font-weight: bold;
-        }
-
-        .status-expired {
-            color: var(--danger-color);
-            font-weight: bold;
-        }
-
-        .member-name {
-            font-weight: 600;
-            color: var(--primary-color);
+        @media (max-width: 576px) {
+            .stat-grid { grid-template-columns: 1fr; }
+            .gallery-grid { grid-template-columns: 1fr; }
         }
     </style>
 </head>
 <body>
-    <!-- Navigation Bar -->
-    <nav class="navbar navbar-expand-lg navbar-dark navbar-custom sticky-top">
-        <div class="container">
-            <a class="navbar-brand" href="#">
-                <i class="bi bi-dumbbell"></i> Gym Membership System
-            </a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav ms-auto">
-                    <li class="nav-item">
-                        <a class="nav-link active" href="#home">Home</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#members">Members</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#statistics">Statistics</a>
-                    </li>
-                </ul>
-            </div>
+<nav class="navbar navbar-expand-lg navbar-dark navbar-premium sticky-top">
+    <div class="container">
+        <a class="navbar-brand" href="#"><span class="brand-mark"><i class="bi bi-shield-shaded"></i> IronPulse</span> Fitness</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ms-auto">
+                <li class="nav-item"><a class="nav-link" href="#home">Home</a></li>
+                <li class="nav-item"><a class="nav-link" href="#dashboard">Dashboard</a></li>
+                <li class="nav-item"><a class="nav-link" href="#members">Members</a></li>
+            </ul>
         </div>
-    </nav>
+    </div>
+</nav>
 
-    <!-- Main Container -->
-    <div class="container container-custom mt-4 mb-5" style="margin-top: 20px !important;">
-        <!-- Header Section -->
-        <div class="header-section">
-            <h1><i class="bi bi-people-fill"></i> Gym Membership Management</h1>
-            <p>Manage your gym members efficiently and effectively</p>
+<section class="hero" id="home">
+    <div class="container">
+        <div class="col-lg-8 fade-in">
+            <h1>Train Like a <span class="gold">Champion</span></h1>
+            <p>Elite training. Serious results. Manage your member base with a powerful gym dashboard built for high-performance fitness clubs.</p>
+            <a href="#memberForm" class="btn btn-gold btn-lg mt-3"><i class="bi bi-lightning-charge-fill"></i> Join the Gym</a>
         </div>
+    </div>
+</section>
 
-        <!-- Statistics Section -->
-        <div class="container mt-4" id="statistics">
-            <div class="stats-section" id="statsContainer">
-                <div class="stat-card">
-                    <h3 id="totalMembers">0</h3>
-                    <p>Total Members</p>
-                </div>
-                <div class="stat-card" style="background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);">
-                    <h3 id="paidMembers">0</h3>
-                    <p>Paid Members</p>
-                </div>
-                <div class="stat-card" style="background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);">
-                    <h3 id="pendingMembers">0</h3>
-                    <p>Pending Payments</p>
-                </div>
-                <div class="stat-card" style="background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);">
-                    <h3 id="expiredMembers">0</h3>
-                    <p>Expired Memberships</p>
-                </div>
-            </div>
+<div class="section-wrap" id="dashboard">
+    <div class="headline">
+        <h2>Performance Dashboard</h2>
+        <small>Real-time member and payment insights</small>
+    </div>
+    <div class="stat-grid">
+        <div class="glass-card stat-card">
+            <span class="stat-icon"><i class="bi bi-people-fill"></i></span>
+            <h3 id="totalMembers">0</h3>
+            <p>Total Members</p>
         </div>
-
-        <!-- Add Member Section -->
-        <div class="card card-custom" id="addMemberCard">
-            <div class="card-header card-header-custom">
-                <i class="bi bi-person-plus-fill"></i> Add New Member
-            </div>
-            <div class="form-section">
-                <form id="addMemberForm" onsubmit="handleAddMember(event)">
-                    <div class="row">
-                        <div class="col-md-6 mb-3">
-                            <label for="memberName" class="form-label">Member Name *</label>
-                            <input type="text" class="form-control" id="memberName" placeholder="Enter full name" required>
-                        </div>
-                        <div class="col-md-6 mb-3">
-                            <label for="contactNumber" class="form-label">Contact Number *</label>
-                            <input type="tel" class="form-control" id="contactNumber" placeholder="Enter contact number" required>
-                        </div>
-                    </div>
-
-                    <div class="row">
-                        <div class="col-md-6 mb-3">
-                            <label for="membershipPlan" class="form-label">Membership Plan *</label>
-                            <select class="form-select" id="membershipPlan" required>
-                                <option value="">Select a plan</option>
-                                <option value="Monthly">Monthly (1 month)</option>
-                                <option value="Quarterly">Quarterly (3 months)</option>
-                                <option value="Yearly">Yearly (12 months)</option>
-                            </select>
-                        </div>
-                        <div class="col-md-6 mb-3">
-                            <label for="startDate" class="form-label">Start Date *</label>
-                            <input type="date" class="form-control" id="startDate" required>
-                        </div>
-                    </div>
-
-                    <div class="row">
-                        <div class="col-md-6 mb-3">
-                            <label for="paymentStatus" class="form-label">Payment Status *</label>
-                            <select class="form-select" id="paymentStatus" required>
-                                <option value="">Select status</option>
-                                <option value="Paid">Paid</option>
-                                <option value="Pending">Pending</option>
-                            </select>
-                        </div>
-                        <div class="col-md-6 mb-3">
-                            <label class="form-label">&nbsp;</label>
-                            <button type="submit" class="btn btn-primary-custom btn-custom w-100">
-                                <i class="bi bi-plus-circle"></i> Add Member
-                            </button>
-                        </div>
-                    </div>
-                </form>
-            </div>
+        <div class="glass-card stat-card">
+            <span class="stat-icon"><i class="bi bi-credit-card-2-front-fill"></i></span>
+            <h3 id="paidMembers">0</h3>
+            <p>Paid Members</p>
         </div>
+        <div class="glass-card stat-card">
+            <span class="stat-icon"><i class="bi bi-hourglass-split"></i></span>
+            <h3 id="pendingMembers">0</h3>
+            <p>Pending Payments</p>
+        </div>
+        <div class="glass-card stat-card">
+            <span class="stat-icon"><i class="bi bi-exclamation-triangle-fill"></i></span>
+            <h3 id="expiredMembers">0</h3>
+            <p>Expired Memberships</p>
+        </div>
+    </div>
+</div>
 
-        <!-- Members List Section -->
-        <div class="card card-custom" id="membersListCard">
-            <div class="card-header card-header-custom">
-                <i class="bi bi-list-ul"></i> Members List
-            </div>
+<div class="section-wrap">
+    <div class="headline">
+        <h2>Elite Training Gallery</h2>
+        <small>Premium fitness atmosphere</small>
+    </div>
+    <div class="gallery-grid">
+        <article class="gallery-card">
+            <img src="https://images.unsplash.com/photo-1581009146145-b5ef050c2e1e?auto=format&fit=crop&w=1200&q=80" alt="Strength training">
+            <div class="gallery-overlay">Strength & Conditioning</div>
+        </article>
+        <article class="gallery-card">
+            <img src="https://images.unsplash.com/photo-1517836357463-d25dfeac3438?auto=format&fit=crop&w=1200&q=80" alt="Bodybuilder training">
+            <div class="gallery-overlay">Bodybuilding Zone</div>
+        </article>
+        <article class="gallery-card">
+            <img src="https://images.unsplash.com/photo-1530822847156-5df684ec5ee1?auto=format&fit=crop&w=1200&q=80" alt="Gym workout">
+            <div class="gallery-overlay">Athlete Performance Lab</div>
+        </article>
+    </div>
+</div>
 
-            <!-- Filters Section -->
-            <div class="filters-section">
-                <div class="row g-3">
-                    <div class="col-md-6">
-                        <div class="search-wrapper">
-                            <i class="bi bi-search"></i>
-                            <input type="text" class="form-control" id="searchInput"
-                                   placeholder="Search by member name...">
-                        </div>
+<div class="section-wrap" id="members">
+    <div class="row g-4">
+        <div class="col-lg-4">
+            <div class="glass-card form-panel h-100">
+                <h4 class="mb-3"><i class="bi bi-person-plus-fill text-warning"></i> Add New Member</h4>
+                <form id="memberForm">
+                    <div class="mb-3">
+                        <label for="memberName" class="form-label">Member Name *</label>
+                        <input type="text" class="form-control" id="memberName" required>
                     </div>
-                    <div class="col-md-4">
-                        <select class="form-select" id="statusFilter">
-                            <option value="">All Payment Status</option>
+                    <div class="mb-3">
+                        <label for="contactNumber" class="form-label">Contact Number *</label>
+                        <input type="tel" class="form-control" id="contactNumber" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="membershipPlan" class="form-label">Membership Plan *</label>
+                        <select class="form-select" id="membershipPlan" required>
+                            <option value="">Select plan</option>
+                            <option value="Monthly">Monthly (1 month)</option>
+                            <option value="Quarterly">Quarterly (3 months)</option>
+                            <option value="Yearly">Yearly (12 months)</option>
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label for="startDate" class="form-label">Start Date *</label>
+                        <input type="date" class="form-control" id="startDate" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="paymentStatus" class="form-label">Payment Status *</label>
+                        <select class="form-select" id="paymentStatus" required>
+                            <option value="">Select status</option>
                             <option value="Paid">Paid</option>
                             <option value="Pending">Pending</option>
                         </select>
                     </div>
-                    <div class="col-md-2">
-                        <button class="btn btn-secondary w-100" onclick="resetFilters()">
-                            <i class="bi bi-arrow-clockwise"></i> Reset
-                        </button>
-                    </div>
-                </div>
+                    <button type="submit" class="btn btn-gold w-100"><i class="bi bi-plus-circle"></i> Add Member</button>
+                </form>
             </div>
+        </div>
 
-            <!-- Table Section -->
-            <div class="table-responsive-custom">
-                <div id="emptyState" class="empty-state">
-                    <i class="bi bi-inbox"></i>
-                    <h5>No members yet</h5>
-                    <p>Add your first member using the form above</p>
+        <div class="col-lg-8">
+            <div class="glass-card table-panel h-100">
+                <div class="headline mb-3">
+                    <h4 class="m-0"><i class="bi bi-table"></i> Members List</h4>
+                    <small id="tableCount">0 records</small>
                 </div>
 
-                <table class="table table-custom" id="membersTable" style="display: none;">
-                    <thead>
+                <div class="toolbar">
+                    <input type="text" class="form-control" id="searchInput" placeholder="Search by member name...">
+                    <select class="form-select" id="statusFilter">
+                        <option value="">All Payment Status</option>
+                        <option value="Paid">Paid</option>
+                        <option value="Pending">Pending</option>
+                    </select>
+                    <button class="btn btn-outline-light" id="resetFiltersBtn"><i class="bi bi-arrow-clockwise"></i> Reset</button>
+                </div>
+
+                <div class="table-shell">
+                    <table class="table table-modern" id="membersTable" style="display:none;">
+                        <thead>
                         <tr>
                             <th>#</th>
                             <th>Name</th>
@@ -538,353 +439,245 @@
                             <th>Payment</th>
                             <th>Actions</th>
                         </tr>
-                    </thead>
-                    <tbody id="membersTableBody">
-                    </tbody>
-                </table>
-            </div>
-        </div>
-    </div>
-
-    <!-- Edit Member Modal -->
-    <div class="modal fade" id="editMemberModal" tabindex="-1">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header modal-header-custom">
-                    <h5 class="modal-title"><i class="bi bi-pencil-square"></i> Edit Member</h5>
-                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
-                </div>
-                <div class="modal-body">
-                    <form id="editMemberForm" onsubmit="handleEditMember(event)">
-                        <input type="hidden" id="editMemberId">
-                        <div class="mb-3">
-                            <label for="editMemberName" class="form-label">Name</label>
-                            <input type="text" class="form-control" id="editMemberName" required>
-                        </div>
-                        <div class="mb-3">
-                            <label for="editContactNumber" class="form-label">Contact Number</label>
-                            <input type="tel" class="form-control" id="editContactNumber" required>
-                        </div>
-                        <div class="mb-3">
-                            <label for="editMembershipPlan" class="form-label">Membership Plan</label>
-                            <select class="form-select" id="editMembershipPlan" required>
-                                <option value="Monthly">Monthly</option>
-                                <option value="Quarterly">Quarterly</option>
-                                <option value="Yearly">Yearly</option>
-                            </select>
-                        </div>
-                        <div class="mb-3">
-                            <label for="editPaymentStatus" class="form-label">Payment Status</label>
-                            <select class="form-select" id="editPaymentStatus" required>
-                                <option value="Paid">Paid</option>
-                                <option value="Pending">Pending</option>
-                            </select>
-                        </div>
-                    </form>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                    <button type="submit" class="btn btn-primary-custom" form="editMemberForm">Save Changes</button>
+                        </thead>
+                        <tbody id="membersTableBody"></tbody>
+                    </table>
+                    <div id="emptyState" class="empty-state">
+                        <i class="bi bi-inbox fs-1 d-block mb-2"></i>
+                        No members yet. Add your first champion above.
+                    </div>
                 </div>
             </div>
         </div>
     </div>
+</div>
 
-    <!-- Footer -->
-    <div class="footer-section">
-        <p>&copy; 2026 Gym Membership Management System. All rights reserved.</p>
-    </div>
+<div class="container pb-4">
+    <div class="text-center text-secondary small">&copy; 2026 IronPulse Fitness. Built for elite performance.</div>
+</div>
 
-    <!-- Bootstrap JS -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<div class="toast-container position-fixed top-0 end-0 p-3" id="toastContainer"></div>
 
-    <script>
-        // Sample data for demonstration
-        let members = [];
-        let memberCounter = 1;
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+    const API_URL = 'http://localhost:8081/api/members';
 
-        // Set today's date as default start date
-        document.getElementById('startDate').valueAsDate = new Date();
+    let members = [];
+    let filteredMembers = [];
 
-        // Helper Functions
-        function calculateEndDate(startDate, plan) {
-            const start = new Date(startDate);
-            const monthsToAdd = {
-                'Monthly': 1,
-                'Quarterly': 3,
-                'Yearly': 12
-            };
-            const end = new Date(start);
-            end.setMonth(end.getMonth() + monthsToAdd[plan]);
-            return end.toISOString().split('T')[0];
-        }
+    document.addEventListener('DOMContentLoaded', () => {
+        const today = new Date().toISOString().split('T')[0];
+        const startDateInput = document.getElementById('startDate');
+        if (startDateInput) startDateInput.value = today;
 
-        function isExpired(endDate) {
-            return new Date(endDate) < new Date();
-        }
+        document.getElementById('memberForm').addEventListener('submit', handleAddMember);
+        document.getElementById('searchInput').addEventListener('input', applyFilters);
+        document.getElementById('statusFilter').addEventListener('change', applyFilters);
+        document.getElementById('resetFiltersBtn').addEventListener('click', resetFilters);
 
-        function formatDate(dateString) {
-            const options = { year: 'numeric', month: 'short', day: 'numeric' };
-            return new Date(dateString).toLocaleDateString('en-US', options);
-        }
+        loadMembers();
+    });
 
-        // Add Member Handler
-        function handleAddMember(event) {
-            event.preventDefault();
+    async function loadMembers() {
+        try {
+            const response = await fetch(API_URL);
+            if (!response.ok) throw new Error('Failed to load members');
 
-            const member = {
-                id: memberCounter++,
-                name: document.getElementById('memberName').value,
-                contactNumber: document.getElementById('contactNumber').value,
-                membershipPlan: document.getElementById('membershipPlan').value,
-                startDate: document.getElementById('startDate').value,
-                paymentStatus: document.getElementById('paymentStatus').value
-            };
+            const result = await response.json();
+            members = Array.isArray(result.data) ? result.data : [];
+            filteredMembers = [...members];
 
-            member.endDate = calculateEndDate(member.startDate, member.membershipPlan);
-
-            members.push(member);
-            document.getElementById('addMemberForm').reset();
-            document.getElementById('startDate').valueAsDate = new Date();
-
-            showNotification('Member added successfully!', 'success');
             renderMembers();
             updateStatistics();
+        } catch (error) {
+            console.error('Error loading members:', error);
+            showNotification('Failed to load members from server', 'danger');
         }
+    }
 
-        // Render Members Table
-        function renderMembers() {
-            const tbody = document.getElementById('membersTableBody');
-            const table = document.getElementById('membersTable');
-            const emptyState = document.getElementById('emptyState');
+    async function handleAddMember(event) {
+        event.preventDefault();
 
-            tbody.innerHTML = '';
+        const member = {
+            name: document.getElementById('memberName').value.trim(),
+            contactNumber: document.getElementById('contactNumber').value.trim(),
+            membershipPlan: document.getElementById('membershipPlan').value,
+            startDate: document.getElementById('startDate').value,
+            paymentStatus: document.getElementById('paymentStatus').value
+        };
 
-            if (members.length === 0) {
-                table.style.display = 'none';
-                emptyState.style.display = 'block';
-                return;
-            }
-
-            table.style.display = 'table';
-            emptyState.style.display = 'none';
-
-            members.forEach((member, index) => {
-                const expired = isExpired(member.endDate);
-                const row = document.createElement('tr');
-                row.className = expired ? 'row-expired' : '';
-
-                row.innerHTML = `
-                    <td>${index + 1}</td>
-                    <td><span class="member-name">${member.name}</span></td>
-                    <td>${member.contactNumber}</td>
-                    <td>${member.membershipPlan}</td>
-                    <td>${formatDate(member.startDate)}</td>
-                    <td>${formatDate(member.endDate)}</td>
-                    <td>
-                        <span class="${expired ? 'status-expired' : 'status-active'}">
-                            ${expired ? '❌ Expired' : '✓ Active'}
-                        </span>
-                    </td>
-                    <td>
-                        <span class="badge-custom ${member.paymentStatus === 'Paid' ? 'badge-paid' : 'badge-pending'}">
-                            ${member.paymentStatus}
-                        </span>
-                    </td>
-                    <td>
-                        <div class="action-buttons">
-                            <button class="btn btn-sm btn-success-custom" onclick="openEditModal(${member.id})">
-                                <i class="bi bi-pencil"></i> Edit
-                            </button>
-                            <button class="btn btn-sm btn-danger-custom" onclick="deleteMember(${member.id})">
-                                <i class="bi bi-trash"></i> Delete
-                            </button>
-                        </div>
-                    </td>
-                `;
-
-                tbody.appendChild(row);
-            });
-        }
-
-        // Edit Member
-        function openEditModal(memberId) {
-            const member = members.find(m => m.id === memberId);
-            if (member) {
-                document.getElementById('editMemberId').value = member.id;
-                document.getElementById('editMemberName').value = member.name;
-                document.getElementById('editContactNumber').value = member.contactNumber;
-                document.getElementById('editMembershipPlan').value = member.membershipPlan;
-                document.getElementById('editPaymentStatus').value = member.paymentStatus;
-
-                const modal = new bootstrap.Modal(document.getElementById('editMemberModal'));
-                modal.show();
-            }
-        }
-
-        function handleEditMember(event) {
-            event.preventDefault();
-
-            const memberId = parseInt(document.getElementById('editMemberId').value);
-            const member = members.find(m => m.id === memberId);
-
-            if (member) {
-                member.name = document.getElementById('editMemberName').value;
-                member.contactNumber = document.getElementById('editContactNumber').value;
-                member.membershipPlan = document.getElementById('editMembershipPlan').value;
-                member.paymentStatus = document.getElementById('editPaymentStatus').value;
-
-                showNotification('Member updated successfully!', 'success');
-                renderMembers();
-                updateStatistics();
-
-                bootstrap.Modal.getInstance(document.getElementById('editMemberModal')).hide();
-            }
-        }
-
-        // Delete Member
-        function deleteMember(memberId) {
-            if (confirm('Are you sure you want to delete this member?')) {
-                members = members.filter(m => m.id !== memberId);
-                showNotification('Member deleted successfully!', 'info');
-                renderMembers();
-                updateStatistics();
-            }
-        }
-
-        // Search and Filter
-        function applyFilters() {
-            const searchTerm = document.getElementById('searchInput').value.toLowerCase();
-            const statusFilter = document.getElementById('statusFilter').value;
-
-            const filtered = members.filter(member => {
-                const matchesSearch = member.name.toLowerCase().includes(searchTerm);
-                const matchesStatus = !statusFilter || member.paymentStatus === statusFilter;
-                return matchesSearch && matchesStatus;
+        try {
+            const response = await fetch(API_URL, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(member)
             });
 
-            renderFilteredMembers(filtered);
-        }
-
-        function renderFilteredMembers(filteredMembers) {
-            const tbody = document.getElementById('membersTableBody');
-            const table = document.getElementById('membersTable');
-            const emptyState = document.getElementById('emptyState');
-
-            tbody.innerHTML = '';
-
-            if (filteredMembers.length === 0) {
-                table.style.display = 'none';
-                emptyState.style.display = 'block';
-                emptyState.innerHTML = '<i class="bi bi-search"></i><h5>No members found</h5><p>Try adjusting your filters</p>';
-                return;
+            if (!response.ok) {
+                const errText = await response.text();
+                throw new Error(errText || 'Failed to add member');
             }
 
-            table.style.display = 'table';
-            emptyState.style.display = 'none';
+            document.getElementById('memberForm').reset();
+            document.getElementById('startDate').value = new Date().toISOString().split('T')[0];
 
-            filteredMembers.forEach((member, index) => {
-                const expired = isExpired(member.endDate);
-                const row = document.createElement('tr');
-                row.className = expired ? 'row-expired' : '';
+            showNotification('Member saved to database!', 'success');
+            await loadMembers();
+        } catch (error) {
+            console.error('Error adding member:', error);
+            showNotification('Error saving member', 'danger');
+        }
+    }
 
-                row.innerHTML = `
-                    <td>${members.indexOf(member) + 1}</td>
-                    <td><span class="member-name">${member.name}</span></td>
-                    <td>${member.contactNumber}</td>
-                    <td>${member.membershipPlan}</td>
-                    <td>${formatDate(member.startDate)}</td>
-                    <td>${formatDate(member.endDate)}</td>
-                    <td>
-                        <span class="${expired ? 'status-expired' : 'status-active'}">
-                            ${expired ? '❌ Expired' : '✓ Active'}
-                        </span>
-                    </td>
-                    <td>
-                        <span class="badge-custom ${member.paymentStatus === 'Paid' ? 'badge-paid' : 'badge-pending'}">
-                            ${member.paymentStatus}
-                        </span>
-                    </td>
-                    <td>
-                        <div class="action-buttons">
-                            <button class="btn btn-sm btn-success-custom" onclick="openEditModal(${member.id})">
-                                <i class="bi bi-pencil"></i> Edit
-                            </button>
-                            <button class="btn btn-sm btn-danger-custom" onclick="deleteMember(${member.id})">
-                                <i class="bi bi-trash"></i> Delete
-                            </button>
-                        </div>
-                    </td>
-                `;
+    async function deleteMember(id) {
+        if (!confirm('Delete this member?')) return;
 
-                tbody.appendChild(row);
-            });
+        try {
+            const response = await fetch(`${API_URL}/${id}`, { method: 'DELETE' });
+            if (!response.ok) throw new Error('Failed to delete member');
+
+            showNotification('Member deleted', 'info');
+            await loadMembers();
+        } catch (error) {
+            console.error('Error deleting member:', error);
+            showNotification('Error deleting member', 'danger');
+        }
+    }
+
+    function applyFilters() {
+        const searchTerm = document.getElementById('searchInput').value.trim().toLowerCase();
+        const statusValue = document.getElementById('statusFilter').value.trim().toLowerCase();
+
+        filteredMembers = members.filter(member => {
+            const name = (member.name || '').toLowerCase();
+            const payment = (member.paymentStatus || '').toLowerCase();
+
+            const matchesSearch = !searchTerm || name.includes(searchTerm);
+            const matchesStatus = !statusValue || payment === statusValue;
+
+            return matchesSearch && matchesStatus;
+        });
+
+        renderMembers();
+    }
+
+    function resetFilters() {
+        document.getElementById('searchInput').value = '';
+        document.getElementById('statusFilter').value = '';
+        filteredMembers = [...members];
+        renderMembers();
+    }
+
+    function updateStatistics() {
+        const total = members.length;
+        const paid = members.filter(m => (m.paymentStatus || '').toLowerCase() === 'paid').length;
+        const pending = members.filter(m => (m.paymentStatus || '').toLowerCase() === 'pending').length;
+        const expired = members.filter(m => isExpiredMember(m)).length;
+
+        document.getElementById('totalMembers').textContent = total;
+        document.getElementById('paidMembers').textContent = paid;
+        document.getElementById('pendingMembers').textContent = pending;
+        document.getElementById('expiredMembers').textContent = expired;
+    }
+
+    function renderMembers() {
+        const tbody = document.getElementById('membersTableBody');
+        const table = document.getElementById('membersTable');
+        const emptyState = document.getElementById('emptyState');
+        const tableCount = document.getElementById('tableCount');
+
+        tbody.innerHTML = '';
+        tableCount.textContent = `${filteredMembers.length} record${filteredMembers.length === 1 ? '' : 's'}`;
+
+        if (filteredMembers.length === 0) {
+            table.style.display = 'none';
+            emptyState.style.display = 'block';
+            return;
         }
 
-        function resetFilters() {
-            document.getElementById('searchInput').value = '';
-            document.getElementById('statusFilter').value = '';
-            renderMembers();
-        }
+        table.style.display = 'table';
+        emptyState.style.display = 'none';
 
-        // Update Statistics
-        function updateStatistics() {
-            const total = members.length;
-            const paid = members.filter(m => m.paymentStatus === 'Paid').length;
-            const pending = members.filter(m => m.paymentStatus === 'Pending').length;
-            const expired = members.filter(m => isExpired(m.endDate)).length;
+        filteredMembers.forEach((member, index) => {
+            const startDate = member.startDate || '-';
+            const endDate = member.endDate || '-';
 
-            document.getElementById('totalMembers').textContent = total;
-            document.getElementById('paidMembers').textContent = paid;
-            document.getElementById('pendingMembers').textContent = pending;
-            document.getElementById('expiredMembers').textContent = expired;
-        }
+            const expired = isExpiredMember(member);
+            const statusBadge = expired
+                ? '<span class="badge-pill badge-expired">Expired</span>'
+                : '<span class="badge-pill badge-active">Active</span>';
 
-        // Show Notification
-        function showNotification(message, type = 'info') {
-            const alertClass = {
-                'success': 'alert-success',
-                'danger': 'alert-danger',
-                'warning': 'alert-warning',
-                'info': 'alert-info'
-            }[type] || 'alert-info';
+            const paymentClass = (member.paymentStatus || '').toLowerCase() === 'paid' ? 'badge-paid' : 'badge-pending';
 
-            const alert = document.createElement('div');
-            alert.className = `alert alert-custom ${alertClass}`;
-            alert.innerHTML = message;
-            alert.style.animation = 'slideIn 0.3s ease-in-out';
+            const row = document.createElement('tr');
+            if (expired) row.classList.add('row-expired');
 
-            const container = document.querySelector('.container-custom');
-            container.insertBefore(alert, container.firstChild);
+            row.innerHTML = `
+                <td>${index + 1}</td>
+                <td class="member-name">${escapeHtml(member.name || '-')}</td>
+                <td>${escapeHtml(member.contactNumber || '-')}</td>
+                <td>${escapeHtml(member.membershipPlan || '-')}</td>
+                <td>${escapeHtml(startDate)}</td>
+                <td>${escapeHtml(endDate)}</td>
+                <td>${statusBadge}</td>
+                <td><span class="badge-pill ${paymentClass}">${escapeHtml(member.paymentStatus || '-')}</span></td>
+                <td>
+                    <button class="btn btn-sm btn-outline-danger" onclick="deleteMember(${member.id})">
+                        <i class="bi bi-trash"></i>
+                    </button>
+                </td>
+            `;
 
-            setTimeout(() => {
-                alert.remove();
-            }, 3000);
-        }
+            tbody.appendChild(row);
+        });
+    }
 
-        // Add CSS animation for alerts
-        const style = document.createElement('style');
-        style.innerHTML = `
-            @keyframes slideIn {
-                from {
-                    transform: translateY(-100%);
-                    opacity: 0;
-                }
-                to {
-                    transform: translateY(0);
-                    opacity: 1;
-                }
-            }
+    function isExpiredMember(member) {
+        if (!member.endDate) return false;
+        const today = new Date();
+        today.setHours(0, 0, 0, 0);
+
+        const endDate = new Date(member.endDate);
+        endDate.setHours(0, 0, 0, 0);
+        return endDate < today;
+    }
+
+    function escapeHtml(text) {
+        const div = document.createElement('div');
+        div.textContent = text;
+        return div.innerHTML;
+    }
+
+    function showNotification(message, type = 'info') {
+        const toastContainer = document.getElementById('toastContainer');
+        const id = `toast-${Date.now()}`;
+
+        const bgClass = type === 'success' ? 'text-bg-success'
+            : type === 'danger' ? 'text-bg-danger'
+            : type === 'warning' ? 'text-bg-warning'
+            : 'text-bg-primary';
+
+        const toast = document.createElement('div');
+        toast.className = `toast align-items-center ${bgClass} border-0`;
+        toast.id = id;
+        toast.role = 'alert';
+        toast.ariaLive = 'assertive';
+        toast.ariaAtomic = 'true';
+
+        toast.innerHTML = `
+            <div class="d-flex">
+                <div class="toast-body">${escapeHtml(message)}</div>
+                <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast"></button>
+            </div>
         `;
-        document.head.appendChild(style);
 
-        // Event Listeners
-        document.getElementById('searchInput').addEventListener('keyup', applyFilters);
-        document.getElementById('statusFilter').addEventListener('change', applyFilters);
+        toastContainer.appendChild(toast);
+        const bsToast = new bootstrap.Toast(toast, { delay: 2800 });
+        bsToast.show();
 
-        // Initialize
-        updateStatistics();
-    </script>
+        toast.addEventListener('hidden.bs.toast', () => toast.remove());
+    }
+</script>
 </body>
 </html>
 
