@@ -214,65 +214,120 @@
 
         .toolbar {
             display: grid;
-            grid-template-columns: 1.3fr 1fr auto;
+            grid-template-columns: 1.8fr 1fr auto;
             gap: 10px;
             margin-bottom: 14px;
         }
 
         .table-shell {
-            overflow-x: auto;
             border-radius: 12px;
             border: 1px solid var(--border);
             background: #0f0f13;
+            width: 100%;
+            overflow-x: auto;
+            overflow-y: hidden;
+            scrollbar-width: thin;
+            scrollbar-color: rgba(212, 175, 55, 0.45) transparent;
+        }
+
+        .table-shell::-webkit-scrollbar {
+            height: 8px;
+        }
+
+        .table-shell::-webkit-scrollbar-thumb {
+            background: rgba(212, 175, 55, 0.45);
+            border-radius: 999px;
         }
 
         .table-modern {
             margin: 0;
             color: #f4f4f5;
+            width: max-content;
+            min-width: 100%;
+            table-layout: auto;
+            border-collapse: collapse;
+            font-variant-numeric: tabular-nums;
         }
 
         .table-modern thead th {
             background: #16161d;
             color: var(--gold-2);
             border-bottom: 1px solid var(--border);
-            padding: 14px 12px;
+            padding: 14px 16px;
             font-weight: 700;
             white-space: nowrap;
+            font-size: 0.85rem;
+            text-align: left;
+            letter-spacing: 0.25px;
+            overflow: visible;
+            text-overflow: clip;
         }
 
         .table-modern tbody td {
             border-bottom: 1px solid rgba(255, 255, 255, 0.06);
-            padding: 12px;
+            padding: 14px 16px;
             vertical-align: middle;
+            font-size: 0.92rem;
+            line-height: 1.35;
+            white-space: nowrap;
+            overflow: visible;
+            text-overflow: clip;
         }
 
-        .table-modern tbody tr:hover {
-            background: rgba(212, 175, 55, 0.08);
-        }
+        /* Keep readable alignment while allowing content-driven widths */
+        .table-modern th:nth-child(1), .table-modern td:nth-child(1) { text-align: center; min-width: 56px; }
+        .table-modern th:nth-child(2), .table-modern td:nth-child(2) { min-width: 180px; }
+        .table-modern th:nth-child(3), .table-modern td:nth-child(3) { min-width: 150px; }
+        .table-modern th:nth-child(4), .table-modern td:nth-child(4) { min-width: 125px; }
+        .table-modern th:nth-child(5), .table-modern td:nth-child(5) { min-width: 124px; }
+        .table-modern th:nth-child(6), .table-modern td:nth-child(6) { min-width: 124px; }
+        .table-modern th:nth-child(7), .table-modern td:nth-child(7) { text-align: center; min-width: 110px; }
+        .table-modern th:nth-child(8), .table-modern td:nth-child(8) { text-align: center; min-width: 110px; }
+        .table-modern th:nth-child(9), .table-modern td:nth-child(9) { text-align: center; min-width: 92px; }
 
-        .member-name { font-weight: 600; }
+        .member-name {
+            font-weight: 600;
+            letter-spacing: 0.1px;
+            white-space: nowrap;
+        }
 
         .badge-pill {
             border-radius: 999px;
-            font-size: 0.78rem;
-            padding: 6px 10px;
+            font-size: 0.75rem;
+            padding: 6px 12px;
             font-weight: 700;
+            border: 1px solid transparent;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            min-width: 82px;
+            white-space: nowrap;
+            box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.08);
         }
 
-        .badge-paid { background: rgba(34, 197, 94, 0.2); color: #86efac; }
-        .badge-pending { background: rgba(245, 158, 11, 0.22); color: #fcd34d; }
-        .badge-expired { background: rgba(239, 68, 68, 0.2); color: #fca5a5; }
-        .badge-active { background: rgba(59, 130, 246, 0.2); color: #93c5fd; }
-
-        .row-expired { background: rgba(239, 68, 68, 0.08) !important; }
-
-        .empty-state {
-            text-align: center;
-            color: var(--muted);
-            padding: 30px 16px;
+        .badge-active {
+            background: rgba(37, 99, 235, 0.28);
+            color: #dbeafe;
+            border-color: rgba(59, 130, 246, 0.7);
         }
 
-        .fade-in { animation: fadeUp 0.5s ease both; }
+        .badge-expired {
+            background: rgba(220, 38, 38, 0.28);
+            color: #fee2e2;
+            border-color: rgba(248, 113, 113, 0.75);
+        }
+
+        .badge-paid {
+            background: rgba(22, 163, 74, 0.3);
+            color: #dcfce7;
+            border-color: rgba(74, 222, 128, 0.75);
+        }
+
+        .badge-pending {
+            background: rgba(217, 119, 6, 0.3);
+            color: #ffedd5;
+            border-color: rgba(251, 146, 60, 0.78);
+        }
 
         @keyframes fadeUp {
             from { opacity: 0; transform: translateY(10px); }
@@ -283,11 +338,25 @@
             .stat-grid { grid-template-columns: repeat(2, 1fr); }
             .gallery-grid { grid-template-columns: 1fr 1fr; }
             .toolbar { grid-template-columns: 1fr; }
+
+            .table-modern {
+                min-width: 940px;
+            }
         }
 
         @media (max-width: 576px) {
             .stat-grid { grid-template-columns: 1fr; }
             .gallery-grid { grid-template-columns: 1fr; }
+
+            .table-modern {
+                min-width: 900px;
+            }
+
+            .table-modern thead th,
+            .table-modern tbody td {
+                padding: 10px 11px;
+                font-size: 0.83rem;
+            }
         }
     </style>
 </head>
@@ -370,7 +439,7 @@
 
 <div class="section-wrap" id="members">
     <div class="row g-4">
-        <div class="col-lg-4">
+        <div class="col-lg-3">
             <div class="glass-card form-panel h-100">
                 <h4 class="mb-3"><i class="bi bi-person-plus-fill text-warning"></i> Add New Member</h4>
                 <form id="memberForm">
@@ -408,7 +477,7 @@
             </div>
         </div>
 
-        <div class="col-lg-8">
+        <div class="col-lg-9">
             <div class="glass-card table-panel h-100">
                 <div class="headline mb-3">
                     <h4 class="m-0"><i class="bi bi-table"></i> Members List</h4>
@@ -622,7 +691,7 @@
                 <td>${statusBadge}</td>
                 <td><span class="badge-pill ${paymentClass}">${escapeHtml(member.paymentStatus || '-')}</span></td>
                 <td>
-                    <button class="btn btn-sm btn-outline-danger" onclick="deleteMember(${member.id})">
+                    <button class="btn btn-action-delete" onclick="deleteMember(${member.id})" title="Delete Member" aria-label="Delete member">
                         <i class="bi bi-trash"></i>
                     </button>
                 </td>
@@ -680,4 +749,6 @@
 </script>
 </body>
 </html>
+
+
 
