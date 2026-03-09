@@ -1,0 +1,44 @@
+﻿# GYM MEMBERSHIP MANAGEMENT SYSTEM
+## Quick Start Guide
+### Files Created:
+1. Member.java - Data model class with enums for MembershipPlan and PaymentStatus
+2. GymConsoleApp.java - Main console application with all features
+3. compile.bat - Batch file to compile the project
+4. run.bat - Batch file to run the application
+5. README_CONSOLE_APP.md - Comprehensive documentation
+### How to Run:
+**Option 1: Using Batch Files (Easiest)**
+1. Double-click on 'compile.bat' to compile the project
+2. Double-click on 'run.bat' to run the application
+**Option 2: Using Command Line**
+1. Open Command Prompt or PowerShell
+2. Navigate to: cd "C:\Users\Merwin Richards M\OneDrive\Desktop\gym-membership-system"
+3. Compile: javac -encoding UTF-8 -d target\classes src\main\java\com\gym\gym_membership_system\*.java
+4. Run: java -cp target\classes com.gym.gym_membership_system.GymConsoleApp
+**Option 3: Using Maven**
+1. mvn clean compile
+2. mvn exec:java -Dexec.mainClass="com.gym.gym_membership_system.GymConsoleApp"
+### Features Implemented:
+✓ Add Member (Auto-generated ID)
+✓ View All Members (Table format)
+✓ Update Member (Individual fields or all)
+✓ Delete Member (With confirmation)
+✓ Search by Name (Partial match)
+✓ Search by ID (HashMap O(1) lookup)
+✓ Filter by Payment Status
+✓ Statistics Dashboard
+### Technical Implementation:
+- Object-Oriented Programming with proper encapsulation
+- ArrayList<Member> for sequential operations
+- HashMap<String, Member> for quick lookups
+- Enums for type safety (MembershipPlan, PaymentStatus)
+- Auto-generated member IDs (GYM1001, GYM1002, etc.)
+- Smart date handling with automatic end date calculation
+- Input validation with error handling
+- Loops and conditional statements throughout
+### Data Structures:
+- ArrayList: Used for viewing, searching, filtering members
+- HashMap: Used for O(1) quick ID lookups, updates, deletions
+- Scanner: Used for all user inputs
+- AtomicInteger: Used for thread-safe ID generation
+Created: March 9, 2026

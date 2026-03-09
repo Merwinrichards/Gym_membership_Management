@@ -1,0 +1,67 @@
+spring.application.name=gym-membership-system
+
+# ========================================
+# DATABASE CONFIGURATION - MySQL
+# ========================================
+
+# MySQL DataSource Configuration
+spring.datasource.url=jdbc:mysql://localhost:3306/gym_db
+spring.datasource.username=root
+spring.datasource.password=root
+
+# MySQL Driver Configuration
+spring.datasource.driver-class-name=com.mysql.cj.jdbc.Driver
+
+# ========================================
+# JPA/Hibernate Configuration
+# ========================================
+
+# Hibernate DDL Auto (update creates/updates tables as needed)
+spring.jpa.hibernate.ddl-auto=update
+
+# Show SQL queries in console
+spring.jpa.show-sql=true
+
+# Format SQL queries for better readability
+spring.jpa.properties.hibernate.format_sql=true
+
+# MySQL Dialect
+spring.jpa.properties.hibernate.dialect=org.hibernate.dialect.MySQLDialect
+
+# Additional Hibernate Properties for optimization
+spring.jpa.properties.hibernate.use_sql_comments=true
+spring.jpa.properties.hibernate.jdbc.batch_size=20
+spring.jpa.properties.hibernate.order_inserts=true
+spring.jpa.properties.hibernate.order_updates=true
+
+# ========================================
+# Server Configuration
+# ========================================
+
+# Server Port
+server.port=8080
+
+# ========================================
+# Logging Configuration
+# ========================================
+
+# Set logging level for Hibernate SQL
+logging.level.org.hibernate.SQL=DEBUG
+logging.level.org.hibernate.type.descriptor.sql.BasicBinder=TRACE
+
+# Set logging level for application
+logging.level.com.gym.gym_membership_system=INFO
+
+# ========================================
+# Error Handling Configuration
+# ========================================
+
+# Include error messages in responses
+server.error.include-message=always
+
+# Include binding errors in responses
+server.error.include-binding-errors=always
+
+# Include stacktrace in responses
+server.error.include-stacktrace=on_param
+
